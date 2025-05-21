@@ -7,19 +7,27 @@ class Login extends Component {
       emailId: "",
       password: "",
       isEmpty: false,
+      msg: "",
     };
+
+    // Bind `this` to the method
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state);
+
+    const { emailId, password } = this.state;
+
+    // Check if fields are empty
+    if (!emailId || !password) {
+      this.setState({ isEmpty: true });
+      return;
+    }
 
     const apiURL = "https://manraj-ors-1.onrender.com/login";
-    const requestData = {
-      emailId: this.state.emailId,
-      password: this.state.password,
-    };
-    this.setState({isEmpty:true})
+    const requestData = { emailId, password };
+
     fetch(apiURL, {
       method: "POST",
       body: JSON.stringify(requestData),
@@ -32,53 +40,84 @@ class Login extends Component {
         console.log(json);
         if (json.message === "No result found") {
           this.setState({ msg: json.message });
-        } else if (json.loginId === this.state.loginId) {
+        } else {
           localStorage.setItem("token", JSON.stringify(json));
-          window.location.pathname = "Home";
+          window.location.pathname = "/Home"; // Use slash to make it a valid path
         }
       })
       .catch((error) => {
         console.error(error);
+        this.setState({ msg: "Something went wrong. Try again!" });
       });
   }
 
   render() {
-    console.log("render");
-    
-        return (
-            <div id="login" className="login template d-flex justify-content-center align-items-center 100-w vh-100 bg-secondary">
-                <div className="form-container p-5 rounded bg-white">
-                    <form>
-                       
-                        <h3  >Login</h3>
-                        <p style={{ color: "red", textAlign: "center" }}>{this.state.msg}</p>
-                        <div className="mb-2">
-                            <label htmlFor="email">Email</label>
-                            <input type="email" placeholder="Enter Email" className="form-control" value={this.state.emaild} onChange={(e) => this.setState({ emailId: e.target.value })} />
-                           {(this.state.isEmpty && !this.state.loginId )&& <span style={{ color: "red", textAlign: "center" }}>Must not be Empty</span>}
-                        </div>
-                        <div className="mb-2">
-                            <label htmlFor="password">Password</label>
-                            <input type="password" placeholder="Enter Password" className="form-control" value={this.state.password} onChange={(e) => this.setState({ password: e.target.value })} />
-                            {(this.state.isEmpty && !this.state.password )&& <span style={{ color: "red", textAlign: "center" }}>Must not be Empty</span>}
+    const { emailId, password, isEmpty, msg } = this.state;
 
-                        </div>
-                        <div>
-                            <input type="checkbox" className="custom-control custom-checkbox" id="check" />
-                            <label htmlFor="check" className="custom-input-label ms-2" >Remember me</label>
-                        </div>
-                        <div className="d-grid">
-                            <button className="btn btn-primary" onClick={(event) => this.handleSubmit(event)} >Login In</button>
-                        </div>
-                        <p className="text-end mt-2">
-                            Forgot <a href="">Password?</a> <a href="" className="ms-2">Sign up</a>
-                        </p>
-                    </form>
-                </div>
+    return (
+      <div className="login template d-flex justify-content-center align-items-center 100-w vh-100 bg-secondary">
+        <div className="form-container p-5 rounded bg-white">
+          <form onSubmit={this.handleSubmit}>
+            <h3>Login</h3>
+            {msg && <p style={{ color: "red", textAlign: "center" }}>{msg}</p>}
+
+            <div className="mb-2">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                placeholder="Enter Email"
+                className="form-control"
+                value={emailId}
+                onChange={(e) => this.setState({ emailId: e.target.value })}
+              />
+              {isEmpty && !emailId && (
+                <span style={{ color: "red" }}>Must not be empty</span>
+              )}
             </div>
-        )
 
-    }
+            <div className="mb-2">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                placeholder="Enter Password"
+                className="form-control"
+                value={password}
+                onChange={(e) => this.setState({ password: e.target.value })}
+              />
+              {isEmpty && !password && (
+                <span style={{ color: "red" }}>Must not be empty</span>
+              )}
+            </div>
+
+            <div>
+              <input
+                type="checkbox"
+                className="custom-control custom-checkbox"
+                id="check"
+              />
+              <label htmlFor="check" className="custom-input-label ms-2">
+                Remember me
+              </label>
+            </div>
+
+            <div className="d-grid">
+              <button type="submit" className="btn btn-primary">
+                Log In
+              </button>
+            </div>
+
+            <p className="text-end mt-2">
+              Forgot <a href="#">Password?</a>{" "}
+              <a href="#" className="ms-2">
+                Sign up
+              </a>
+            </p>
+          </form>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default Login;
+

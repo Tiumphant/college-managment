@@ -1,0 +1,3 @@
+[submodule "college-managemnt"]
+	path = college-managemnt
+	url = https://github.com/Tiumphant/college-managment.git
