@@ -1,0 +1,175 @@
+h2{
+    text-align: center;
+}
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .carousel-item img {
+    animation: fadeIn 1s ease-in-out;
+}
+.about{
+    display: flex;
+position: relative;
+}
+.main{
+    text-align: center;
+    font-size: 35px;
+    color: blue;
+    text-decoration-line: underline;
+
+}
+.about-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem; /* space b/w text and image*/
+    padding: 2rem;
+}
+
+.about-content {
+    flex: 1; /* Allows text to take available space */
+    max-width: 50%;
+    font-size: 20px;
+    line-height: 1.6;
+}
+
+.about-carousel {
+    flex: 1;
+    max-width: 50%;
+}
+
+.about-carousel img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+    .about-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-content, .about-carousel {
+        max-width: 100%;
+    }
+}
+.courses {
+    padding: 20px;
+}
+
+.course-list {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 20px; 
+    justify-content: space-between; 
+}
+
+.course-item {
+    flex: 1 1 calc(33.333% - 20px); /* Three items per row */
+    box-sizing: border-box;
+    padding: 15px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.course-item h3 {
+    margin-top: 0;
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+    .course-item {
+        flex: 1 1 calc(50% - 20px); /* Two items per row on medium screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .course-item {
+        flex: 1 1 100%; /* One item per row on small screens */
+    }
+}
+.container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .image-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    max-width: 900px;
+  }
+  
+  .image-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+  
+  .image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .image-container:hover .image {
+    transform: scale(1.1);
+  }
+  
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  .image-container:hover .overlay {
+    opacity: 1;
+  }
+  
+  .animated-text {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  footer{
+    background-color: midnightblue;
+    color: white;
+  }
+  .contact{
+    background-color: midnightblue;
+    color: white;
+  }
