@@ -1,0 +1,10 @@
+.main {
+  text-align: center;
+  margin: 40px 0 20px;
+  font-weight: 700;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  transition: 0.3s;
+}
